@@ -1,0 +1,37 @@
+CREATE DATABASE gestion_magasin;
+USE gestion_magasin;
+CREATE TABLE Client
+(
+   codeDeClient         char(4) primary key,
+   nom                  varchar(25),
+   prenom               varchar(25),
+   clientsAdresse       char(30),
+   numeroDeTelephone    varchar(25),
+   email                char(30),
+   motDePasse           char(8)
+);
+
+CREATE TABLE Produit
+(
+   codeDeProduit        char(4) primary key,
+   libelle              varchar(25),
+   description          varchar(25),
+   prixDeProduit        decimal,
+   qteStock             int
+);
+
+CREATE TABLE Commande
+(
+   idCommande           char(4) primary key,
+   codeDeClient         char(4) references Client(codeDeClient),
+   datePrecise          datetime,
+   adsDeCommande        char(30)
+); 
+
+CREATE TABLE QuantiteCommandee
+(
+   idCommande           char(4) references Commande(idCommande),
+   codeDeProduit        char(4) references Produit(codeDeProduit),
+   qtyCommand          char(100),
+   primary key (idCommande, codeDeProduit)
+);
